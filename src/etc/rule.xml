@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <rule>
+        <method>POST</method>
+        <match>eth_blockNumber</match>
+        <replace>{"jsonrpc":"2.0","id":%s,"result":"0x54af77"}</replace>
+    </rule>
+    <rule>
+        <method>POST</method>
+        <match>eth_accounts</match>
+        <replace>{"jsonrpc":"2.0","id":%s,"result":["0x7fa4cbba9a4f14040da18ffc6778c25e4cc71f39","0x568a63724670b9a475f56554d9d2e36c15bb3c5d","0xfc0fbd9a05b5bb2dfe2ed65fa1317db4f0096de3","0x3eaa9272865069233e9ae9355d7203ef61e12d45","0xc0d0ed068b74e00f9ff1a3645c2c290e3432fe53","0x683ec947d2a4039691ce7bda129706c02f3a6374"]}</replace>
+    </rule>
+    <rule>
+        <method>POST</method>
+        <match>eth_getBalance</match>
+        <replace>{"id":%s,"jsonrpc":"2.0","result":"0x031534c8a3397aab58"}</replace>
+    </rule>
+    <rule>
+        <method>POST</method>
+        <match>eth_sendTransaction</match>
+        <replace>{"jsonrpc":"2.0","id":%s,"error":{"code":-32000,"message":"account is locked"}}</replace>
+    </rule>
+    <rule>
+        <method>POST</method>
+        <match>eth_sendRawTransaction</match>
+        <replace>{"jsonrpc":"2.0","id":%s,"result":"0xfgggggc143b"}</replace>
+    </rule>
+    <rule>
+        <method>POST</method>
+        <match>eth_getBlockByNumber</match>
+        <replace>{"jsonrpc":"2.0","id":%s,"result":{"difficulty":"0x400000000","extraData":"0x11bbe8db4e347b4e8c937c1c8370e4b5ed33adb3db69cbdb7a38e1e50b1b82fa","gasLimit":"0x1388","gasUsed":"0x0","hash":"0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3","logsBloom":"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000","miner":"0x0000000000000000000000000000000000000000","nonce":"0x0000000000000042","number":"0x0","parentHash":"0x0000000000000000000000000000000000000000000000000000000000000000","receiptsRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","sha3Uncles":"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347","size":"0x21c","stateRoot":"0xd7f8974fb5ac78d9ac099b9ad5018bedc2ce0a72dad1827a1709da30580f0544","timestamp":"0x0","totalDifficulty":"0x400000000","transactions":[],"transactionsRoot":"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421","uncles":[]}}</replace>
+    </rule>
+    <rule>
+        <method>POST</method>
+        <match>net_version</match>
+        <replace>{"jsonrpc":"2.0","id":%s,"result":"1"}</replace>
+    </rule>
+    <rule>
+        <method>POST</method>
+        <match>0x00</match>
+        <replace></replace>
+    </rule>
+    <rule>
+        <match>rpc_modules</match>
+        <replace>{"jsonrpc":"2.0","id":%s,"result":{"admin":"1.0","debug":"1.0","eth":"1.0","miner":"1.0","net":"1.0","personal":"1.0","rpc":"1.0","txpool":"1.0","web3":"1.0"}}</replace>
+    </rule>
+</resources>

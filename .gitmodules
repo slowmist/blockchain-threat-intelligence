@@ -1,0 +1,3 @@
+[submodule "src/vendor/github.com/urfave/cli"]
+	path = src/vendor/github.com/urfave/cli
+	url = https://github.com/urfave/cli.git

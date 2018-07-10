@@ -21,8 +21,8 @@ $ git clone https://github.com/slowmist/blockchain-threat-intelligence.git
 ```
 $ cd blockchain-threat-intelligence
 $ docker build --rm -t btisp-agent . //创建镜像
-$ docker run -p 8545:8545 --name="btisp-agent-instance" btisp-agent //创建容器
-$ docker start btisp-agent-instance --bounty 0x1234567890123456789012345678901234567800 //启动容器，并指定接收慢雾币激励的以太坊钱包地址
+$ docker run -p 8545:8545 --name="btisp-agent-instance" btisp-agent --bounty 0x1234567890123456789012345678901234567800 //创建容器，并指定接收慢雾币激励的以太坊钱包地址
+$ docker start btisp-agent-instance //启动容器
 $ docker stop btisp-agent-instance //停止容器
 $ docker rm btisp-agent-instance //删除容器
 ```
