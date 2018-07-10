@@ -39,10 +39,10 @@ $ go get -u github.com/slowmist/blockchain-threat-intelligence
 2.3 编译运行
 
 ```
-$ go-bindata -pkg etc -o etc/bindata.go etc/ //打包配置资源
-$ cd $GOPATH/src/github.com/slowmist/blockchain-threat-intelligence/bin 
-$ go build -o btisp-agent ../src/ //编译
-$ ./btisp-agent --bounty 0x1234567890123456789012345678901234567800 //启动，并指定接收慢雾币激励的以太坊钱包地址
+$ cd $GOPATH/src/github.com/slowmist/blockchain-threat-intelligence/src
+$ mkdir ../bin ../pkg
+$ go build -o ../bin/btisp-agent //编译
+$ ../bin/btisp-agent --bounty 0x1234567890123456789012345678901234567800 //启动，并指定接收慢雾币激励的以太坊钱包地址
 ```
 
 ## 命令详解

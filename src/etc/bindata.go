@@ -105,7 +105,7 @@ func etcBindataGo() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "etc/bindata.go", size: 0, mode: os.FileMode(420), modTime: time.Unix(1530026561, 0)}
+	info := bindataFileInfo{name: "etc/bindata.go", size: 0, mode: os.FileMode(420), modTime: time.Unix(1531212708, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
