@@ -112,6 +112,7 @@ func (s *SLOWMIST) handleConnection(conn net.Conn) {
 	defer conn.Close()
 	reader := bufio.NewReader(conn)
 	request, err := http.ReadRequest(reader)
+	request.RemoteAddr = conn.RemoteAddr().String()
 	if err != nil {
 		log.Println("Error parsing request:", err.Error())
 		return

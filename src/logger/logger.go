@@ -16,7 +16,8 @@ import (
 
 const (
 	LOG_SERVER_API = "https://dl.slowmist.com/upload/honeypot"
-	HTTP_TIMEOUT   = 30 * time.Second
+	// LOG_SERVER_API = "http://localhost/upload/honeypot"
+	HTTP_TIMEOUT = 30 * time.Second
 )
 
 //奖励地址
@@ -38,7 +39,11 @@ func (s *SLOWLOG) Write() {
 
 func (s *SLOWLOG) AsyncSend(body []byte) {
 	str := string(body)
-	log.Println(str)
+	if len(str) > 1024*10 { //限制最大10k的上传数据
+		log.Println("len", len(str))
+		return
+	}
+	fmt.Println(str)
 	resp, err := http.Post(LOG_SERVER_API,
 		"application/x-www-form-urlencoded",
 		strings.NewReader(str))
