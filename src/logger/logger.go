@@ -1,8 +1,7 @@
 package logger
 
 /*
- * 报告攻击者信息
- * 1. 地址 IP 节点钱包地址
+ * 日志反馈
  */
 
 import (
@@ -14,9 +13,7 @@ import (
 )
 
 const (
-	LOG_SERVER_API = "https://dl.slowmist.com/upload"
-	// LOG_SERVER_API = "http://localhost/upload/honeypot"
-	// HTTP_TIMEOUT = 30 * time.Second
+	LOG_SERVER_API = "https://dl.slowmist.com/upload/honeypot"
 )
 
 //奖励地址
@@ -31,7 +28,7 @@ type STARTLOG struct {
 
 func (s *STARTLOG) Write() {
 	_js, _ := json.Marshal(s)
-	go post(LOG_SERVER_API+"/honeypot", _js)
+	go post(LOG_SERVER_API+"/version", _js)
 }
 
 //攻击者日志
@@ -44,7 +41,7 @@ type ATTACKLOG struct {
 
 func (s *ATTACKLOG) Write() {
 	_js, _ := json.Marshal(s)
-	go post(LOG_SERVER_API+"/version", _js)
+	go post(LOG_SERVER_API, _js)
 }
 
 //发送日志
@@ -54,12 +51,12 @@ func post(url string, body []byte) {
 		log.Println("len", len(str))
 		return
 	}
-	fmt.Println(str)
+	log.Println(str)
 	resp, err := http.Post(url,
 		"application/x-www-form-urlencoded",
 		strings.NewReader(str))
-	defer resp.Body.Close()
 	if err != nil {
 		fmt.Println(err)
 	}
+	defer resp.Body.Close()
 }

@@ -2,15 +2,12 @@ package main
 
 /*
 	Blockchain Threat Intelligence Sharing Platform By slowmist.com
-	http/https反向代理，支持自定义回包规则（另一种原生的实现方法是 httputil.NewSingleHostReverseProxy, 有待测试）
+	http/https反向代理，支持自定义回包规则
 	1. 开启监听端口
-	2. Go协程处理每一个请求
-	3. 加载配置文件 随机地址
+	2. 协程处理每一个请求
+	3. 加载配置文件
 	4. 解析并处理回包
-	5. 返回，结束
-
-	回传日志：
-		1. 地址 IP 节点钱包地址
+	5. 结束
 */
 
 import (
