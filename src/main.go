@@ -18,10 +18,6 @@ import (
 	"bytes"
 	"crypto/tls"
 	"fmt"
-	"github.com/slowmist/blockchain-threat-intelligence/src/etc"
-	"github.com/slowmist/blockchain-threat-intelligence/src/filter"
-	"github.com/slowmist/blockchain-threat-intelligence/src/logger"
-	"github.com/urfave/cli"
 	"io/ioutil"
 	"log"
 	"net"
@@ -31,6 +27,11 @@ import (
 	"os"
 	"strings"
 	"time"
+
+	"github.com/slowmist/blockchain-threat-intelligence/src/etc"
+	"github.com/slowmist/blockchain-threat-intelligence/src/filter"
+	"github.com/slowmist/blockchain-threat-intelligence/src/logger"
+	"github.com/urfave/cli"
 )
 
 const (
@@ -146,6 +147,7 @@ func (s *SLOWMIST) handleConnection(conn net.Conn) {
 
 func main() {
 	app := cli.NewApp()
+	app.Version = "0.1.1"
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:  "target",
@@ -179,6 +181,15 @@ func main() {
 		},
 	}
 	app.Action = func(c *cli.Context) error {
+		cli.ShowVersion(c)
+		logger.BountyAddress = c.String("bounty")
+		_lg := &logger.STARTLOG{
+			ClientVersion:   c.App.Version,
+			ReporterEthAddr: logger.BountyAddress,
+			Time:            time.Now().Unix(),
+		}
+		_lg.Write()
+
 		_u, _ := url.Parse(c.String("target"))
 		_t := &SLOWMIST{
 			SLOWMIST_targetURL:      _u,
@@ -187,7 +198,6 @@ func main() {
 			SLOWMIST_certPath:       c.String("cert"),
 			SLOWMIST_privateKeyPath: c.String("private-key"),
 		}
-		logger.BountyAddress = c.String("bounty")
 
 		var s net.Listener
 		s, _ = _t.initServer()

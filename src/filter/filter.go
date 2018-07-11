@@ -9,9 +9,10 @@ import (
 	// "encoding/hex"
 	"encoding/xml"
 	"fmt"
+
 	"github.com/slowmist/blockchain-threat-intelligence/src/etc"
+
 	// "github.com/ethereum/go-ethereum/crypto"
-	"github.com/slowmist/blockchain-threat-intelligence/src/logger"
 	"io/ioutil"
 	"log"
 	"math/rand"
@@ -19,6 +20,8 @@ import (
 	"regexp"
 	"strings"
 	"time"
+
+	"github.com/slowmist/blockchain-threat-intelligence/src/logger"
 )
 
 const (
@@ -110,8 +113,8 @@ func ModifyResponse(req *http.Request, resp *http.Response) {
 			resp.Body = ioutil.NopCloser(newresponse)
 			//记录日志
 			_ip := req.RemoteAddr
-			_lg := &logger.SLOWLOG{
-				Ip:              _ip,
+			_lg := &logger.ATTACKLOG{
+				IP:              _ip,
 				RequestBody:     requestText,
 				ReporterEthAddr: logger.BountyAddress,
 				Time:            time.Now().Unix(),

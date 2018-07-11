@@ -11,40 +11,51 @@ import (
 	"log"
 	"net/http"
 	"strings"
-	"time"
 )
 
 const (
-	LOG_SERVER_API = "https://dl.slowmist.com/upload/honeypot"
+	LOG_SERVER_API = "https://dl.slowmist.com/upload"
 	// LOG_SERVER_API = "http://localhost/upload/honeypot"
-	HTTP_TIMEOUT = 30 * time.Second
+	// HTTP_TIMEOUT = 30 * time.Second
 )
 
 //奖励地址
 var BountyAddress string
 
-//日志结构
-type SLOWLOG struct {
-	Ip              string `json:"ip"`
+//启动日志
+type STARTLOG struct {
+	ClientVersion   string `json:"version"`
+	ReporterEthAddr string `json:"bounty"`
+	Time            int64  `json:"time"`
+}
+
+func (s *STARTLOG) Write() {
+	_js, _ := json.Marshal(s)
+	go post(LOG_SERVER_API+"/honeypot", _js)
+}
+
+//攻击者日志
+type ATTACKLOG struct {
+	IP              string `json:"ip"`
 	RequestBody     string `json:"body"`
 	ReporterEthAddr string `json:"bounty"`
 	Time            int64  `json:"time"`
 }
 
-//记录攻击者
-func (s *SLOWLOG) Write() {
+func (s *ATTACKLOG) Write() {
 	_js, _ := json.Marshal(s)
-	go s.AsyncSend(_js)
+	go post(LOG_SERVER_API+"/version", _js)
 }
 
-func (s *SLOWLOG) AsyncSend(body []byte) {
+//发送日志
+func post(url string, body []byte) {
 	str := string(body)
 	if len(str) > 1024*10 { //限制最大10k的上传数据
 		log.Println("len", len(str))
 		return
 	}
 	fmt.Println(str)
-	resp, err := http.Post(LOG_SERVER_API,
+	resp, err := http.Post(url,
 		"application/x-www-form-urlencoded",
 		strings.NewReader(str))
 	defer resp.Body.Close()
