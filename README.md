@@ -13,7 +13,7 @@
 1.2 下载源代码
 
 ```
-$ git clone https://github.com/slowmist/blockchain-threat-intelligence.git
+$ git clone https://github.com/slowmist/blockchain-threat-intelligence.git --recursive
 ```
 
 1.3 使用 Docker
