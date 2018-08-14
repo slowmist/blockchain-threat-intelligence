@@ -1,53 +1,54 @@
-# Blockchain Threat Intelligence Sharing Platform（区块链威胁情报共享平台）
+# Blockchain Threat Intelligence Sharing Platform
 
-> by 慢雾安全团队 & Joinsec Team
+> by SlowMist Security Team & Joinsec Team
 
-## [English](./README-en.md)
+## [中文](./README.md)
 
-## 简介
-慢雾区块链威胁情报共享平台是一个模拟以太坊、EOS等节点客户端 RPC 功能的工具，用于监测全球网络中针对区块链系统的攻击。
+## Introduction
 
-## 使用方法
+SlowMist Zone threat intelligence sharing platform is a tool to simulate the RPC functions of node clients such as Ethereum and EOS, used to monitor attacks against blockchain systems in global networks.
 
-### 1. 使用 Docker 运行
-1.1 安装  [Docker][1]
+## Instructions
 
-1.2 下载源代码
+### 1. Run with Docker
+1.1 Install  [Docker][1]
+
+1.2 Download the Source Code
 
 ```
 $ git clone https://github.com/slowmist/blockchain-threat-intelligence.git --recursive
 ```
 
-1.3 使用 Docker
+1.3 Use Docker
 
 ```
 $ cd blockchain-threat-intelligence
-$ docker build --rm -t btisp-agent . //创建镜像
-$ docker run -p 8545:8545 --name="btisp-agent-instance" btisp-agent --bounty 0x1234567890123456789012345678901234567800 //创建容器，并指定接收慢雾币激励的以太坊钱包地址
-$ docker start btisp-agent-instance //启动容器
-$ docker stop btisp-agent-instance //停止容器
-$ docker rm btisp-agent-instance //删除容器
+$ docker build --rm -t btisp-agent . //Create the container
+$ docker run -p 8545:8545 --name="btisp-agent-instance" btisp-agent --bounty 0x1234567890123456789012345678901234567800 //Create the container and specify the ethereum wallet address to receive SLOWMIST incentive.
+$ docker start btisp-agent-instance //Activate the container
+$ docker stop btisp-agent-instance //Stop the container
+$ docker rm btisp-agent-instance //Remove the container
 ```
 
-### 2. 源代码编译执行
-2.1 安装 [Golang][2]
+### 2. Source Code Compilation Execution
+2.1 Install [Golang][2]
 
-2.2 下载源代码
+2.2 Download the Source Code
 
 ```
 $ go get -u github.com/slowmist/blockchain-threat-intelligence
 ```
 
-2.3 编译运行
+2.3 Compilation Run
 
 ```
 $ cd $GOPATH/src/github.com/slowmist/blockchain-threat-intelligence/src
 $ mkdir ../bin ../pkg
-$ go build -o ../bin/btisp-agent //编译
-$ ../bin/btisp-agent --bounty 0x1234567890123456789012345678901234567800 //启动，并指定接收慢雾币激励的以太坊钱包地址
+$ go build -o ../bin/btisp-agent //Compilation
+$ ../bin/btisp-agent --bounty 0x1234567890123456789012345678901234567800 //Activate and specify the ethereum wallet address to receive SLOWMIST incentive.
 ```
 
-## 命令详解
+## The Command
 
 ```
 $ ./btisp-agent --help
@@ -69,11 +70,11 @@ GLOBAL OPTIONS:
    --version, -v        print the version
 ```
 
-## 测试
+## Test
 
 ```
 $ curl -H 'Content-Type: application/json' --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":999}' http://localhost:8545
 ```
 
-  [1]: https://www.docker.com/products/docker "Docker官网"
+  [1]: https://www.docker.com/products/docker "Docker Website"
   [2]: https://golang.org/ "Golang"
